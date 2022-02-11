@@ -1,58 +1,91 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import { ApiError, CatDTO, UserDTO } from './services/openapi';
+import { createUser, getUsers, removeUserByName, updateUserByName } from './services/api/user';
+import AddUser from './features/user/AddUser';
+import { UserItem } from './features/user';
+import { createCat, getCats, removeCatByName, updateCatByName } from './services/api/cat';
+import { AddCat, CatItem } from './features/cat';
 
 function App() {
+  const [users, setUsers] = useState<UserDTO[]>([]);
+  const [cats, setCats] = useState<CatDTO[]>([]);
+  const [error, setError] = useState<ApiError | null>();
+
+  const handleSaveUser = useCallback((e: React.FormEvent, formData: UserDTO) => {
+    e.preventDefault();
+    createUser(formData)
+      .then((user) => user)
+      .catch((err) => setError(err))
+  }, [])
+
+  const handleUpdateTodo = useCallback((name: string, todo: UserDTO) => {
+    updateUserByName(name, todo)
+      .then((updatedTodo) => updatedTodo)
+      .catch((err) => setError(err));
+  }, []);
+
+  const handleDeleteTodo = useCallback((name: string) => {
+    removeUserByName(name)
+      .catch((err) => setError(err));
+  }, []);
+
+  useEffect(() => {
+    getUsers()
+      .then((allTodos) =>  {
+        console.log(allTodos)
+        setUsers(allTodos)
+      })
+      .catch((error) => setError(error));
+  }, []);
+
+
+
+  const handleSaveCat = useCallback((e: React.FormEvent, formData: CatDTO) => {
+    e.preventDefault();
+    createCat(formData)
+      .then((user) => user)
+      .catch((err) => setError(err))
+  }, [])
+
+  const handleUpdateCat = useCallback((name: string, todo: CatDTO) => {
+    updateCatByName(name, todo)
+      .then((updatedTodo) => updatedTodo)
+      .catch((err) => setError(err));
+  }, []);
+
+  const handleDeleteCat = useCallback((name: string) => {
+    removeCatByName(name)
+      .catch((err) => setError(err));
+  }, []);
+
+  useEffect(() => {
+    getCats()
+      .then((allTodos) =>  {
+        console.log(allTodos)
+        setCats(allTodos)
+      })
+      .catch((error) => setError(error));
+  }, []);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <main className='App'>
+      <h1>My Cats</h1>
+      <AddCat saveTodo={handleSaveCat} />
+      {cats.map((todo: CatDTO) => (
+        <CatItem
+          key={todo.name}
+          updateTodo={handleUpdateCat}
+          deleteTodo={handleDeleteCat}
+          todo={todo}
+        />
+      ))}
+    </main>
   );
-}
+};
+
 
 export default App;

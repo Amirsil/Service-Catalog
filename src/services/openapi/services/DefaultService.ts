@@ -27,8 +27,8 @@ export class DefaultService {
      * @throws ApiError
      */
     public static catControllerCreate(
-        requestBody: CatDTO,
-    ): CancelablePromise<any> {
+requestBody: CatDTO,
+): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/cats',
@@ -43,8 +43,8 @@ export class DefaultService {
      * @throws ApiError
      */
     public static catControllerGetCatByName(
-        name: string,
-    ): CancelablePromise<any> {
+name: string,
+): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/cats/{name}',
@@ -61,9 +61,9 @@ export class DefaultService {
      * @throws ApiError
      */
     public static catControllerUpdate(
-        name: string,
-        requestBody: CatDTO,
-    ): CancelablePromise<any> {
+name: string,
+requestBody: CatDTO,
+): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/cats/{name}',
@@ -81,8 +81,8 @@ export class DefaultService {
      * @throws ApiError
      */
     public static catControllerRemove(
-        name: string,
-    ): CancelablePromise<any> {
+name: string,
+): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/cats/{name}',
@@ -109,8 +109,8 @@ export class DefaultService {
      * @throws ApiError
      */
     public static userControllerCreate(
-        requestBody: UserDTO,
-    ): CancelablePromise<any> {
+requestBody: UserDTO,
+): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/users',
@@ -125,8 +125,8 @@ export class DefaultService {
      * @throws ApiError
      */
     public static userControllerGetUserByName(
-        name: string,
-    ): CancelablePromise<any> {
+name: string,
+): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/users/{name}',
@@ -143,9 +143,9 @@ export class DefaultService {
      * @throws ApiError
      */
     public static userControllerUpdate(
-        name: string,
-        requestBody: UserDTO,
-    ): CancelablePromise<any> {
+name: string,
+requestBody: UserDTO,
+): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/users/{name}',
@@ -163,8 +163,8 @@ export class DefaultService {
      * @throws ApiError
      */
     public static userControllerRemove(
-        name: string,
-    ): CancelablePromise<any> {
+name: string,
+): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/users/{name}',
