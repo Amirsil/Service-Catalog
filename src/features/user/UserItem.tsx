@@ -1,13 +1,13 @@
 import React from 'react';
 import { removeUserByName, updateUserByName } from '../../services/api/user';
-import { ApiError, UserDTO } from '../../services/openapi';
+import { ApiError, CreateUserDTO, UserDTO } from '../../services/openapi';
 
 
 type TodoItemProps = {
     deleteTodo: (name: string) => void;
     error?: ApiError;
     todo: UserDTO;
-    updateTodo: (name: string, todo: UserDTO) => void;
+    updateTodo: (name: string, todo: CreateUserDTO) => void;
 };
 
 const TodoItem = ({ todo, updateTodo, deleteTodo }: TodoItemProps) => {
@@ -15,14 +15,10 @@ const TodoItem = ({ todo, updateTodo, deleteTodo }: TodoItemProps) => {
         <div className='Card'>
             <div className='Card--text'>
                 <h1>{todo.name}</h1>
-                <span>{todo.catNames}</span>
+                <span>{todo.cats}</span>
             </div>
             <div className='Card--button'>
-                <button
-                    onClick={() => updateUserByName(todo.name, todo)}
-                >
-                    Complete
-                </button>
+
                 <button
                     onClick={() => removeUserByName(todo.name)}
                     className='Card--button__delete'

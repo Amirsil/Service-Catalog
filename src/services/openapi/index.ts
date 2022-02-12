@@ -7,6 +7,8 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { CatDTO } from './models/CatDTO';
+export type { CreateCatDTO } from './models/CreateCatDTO';
+export type { CreateUserDTO } from './models/CreateUserDTO';
 export type { UserDTO } from './models/UserDTO';
 
 export { DefaultService } from './services/DefaultService';

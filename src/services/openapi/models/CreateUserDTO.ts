@@ -2,9 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { CatDTO } from './CatDTO';
-
-export type UserDTO = {
+export type CreateUserDTO = {
     name: string;
-    cats: Array<CatDTO>;
+    catNames: Array<string>;
 };

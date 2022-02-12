@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CatDTO } from '../models/CatDTO';
+import type { CreateCatDTO } from '../models/CreateCatDTO';
+import type { CreateUserDTO } from '../models/CreateUserDTO';
 import type { UserDTO } from '../models/UserDTO';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -11,10 +13,10 @@ import { request as __request } from '../core/request';
 export class DefaultService {
 
     /**
-     * @returns any 
+     * @returns CatDTO 
      * @throws ApiError
      */
-    public static catControllerGetCats(): CancelablePromise<any> {
+    public static catControllerGetCats(): CancelablePromise<Array<CatDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/cats',
@@ -27,7 +29,7 @@ export class DefaultService {
      * @throws ApiError
      */
     public static catControllerCreate(
-requestBody: CatDTO,
+requestBody: CreateCatDTO,
 ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -62,7 +64,7 @@ name: string,
      */
     public static catControllerUpdate(
 name: string,
-requestBody: CatDTO,
+requestBody: CreateCatDTO,
 ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'PUT',
@@ -93,10 +95,10 @@ name: string,
     }
 
     /**
-     * @returns any 
+     * @returns UserDTO 
      * @throws ApiError
      */
-    public static userControllerGetUsers(): CancelablePromise<any> {
+    public static userControllerGetUsers(): CancelablePromise<Array<UserDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/users',
@@ -109,7 +111,7 @@ name: string,
      * @throws ApiError
      */
     public static userControllerCreate(
-requestBody: UserDTO,
+requestBody: CreateUserDTO,
 ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -144,7 +146,7 @@ name: string,
      */
     public static userControllerUpdate(
 name: string,
-requestBody: UserDTO,
+requestBody: CreateUserDTO,
 ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'PUT',

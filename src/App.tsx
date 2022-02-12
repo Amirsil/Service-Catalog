@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
-import { ApiError, CatDTO, UserDTO } from './services/openapi';
+import { ApiError, CatDTO, CreateCatDTO, CreateUserDTO, UserDTO } from './services/openapi';
 import { createUser, getUsers, removeUserByName, updateUserByName } from './services/api/user';
 import AddUser from './features/user/AddUser';
 import { UserItem } from './features/user';
@@ -14,14 +14,15 @@ function App() {
   const [cats, setCats] = useState<CatDTO[]>([]);
   const [error, setError] = useState<ApiError | null>();
 
-  const handleSaveUser = useCallback((e: React.FormEvent, formData: UserDTO) => {
+
+  const handleSaveUser = useCallback((e: React.FormEvent, formData: CreateUserDTO) => {
     e.preventDefault();
     createUser(formData)
       .then((user) => user)
       .catch((err) => setError(err))
   }, [])
 
-  const handleUpdateTodo = useCallback((name: string, todo: UserDTO) => {
+  const handleUpdateTodo = useCallback((name: string, todo: CreateUserDTO) => {
     updateUserByName(name, todo)
       .then((updatedTodo) => updatedTodo)
       .catch((err) => setError(err));
@@ -34,7 +35,7 @@ function App() {
 
   useEffect(() => {
     getUsers()
-      .then((allTodos) =>  {
+      .then((allTodos) => {
         console.log(allTodos)
         setUsers(allTodos)
       })
@@ -43,14 +44,14 @@ function App() {
 
 
 
-  const handleSaveCat = useCallback((e: React.FormEvent, formData: CatDTO) => {
+  const handleSaveCat = useCallback((e: React.FormEvent, formData: CreateCatDTO) => {
     e.preventDefault();
     createCat(formData)
       .then((user) => user)
       .catch((err) => setError(err))
   }, [])
 
-  const handleUpdateCat = useCallback((name: string, todo: CatDTO) => {
+  const handleUpdateCat = useCallback((name: string, todo: CreateCatDTO) => {
     updateCatByName(name, todo)
       .then((updatedTodo) => updatedTodo)
       .catch((err) => setError(err));
@@ -63,7 +64,7 @@ function App() {
 
   useEffect(() => {
     getCats()
-      .then((allTodos) =>  {
+      .then((allTodos) => {
         console.log(allTodos)
         setCats(allTodos)
       })
