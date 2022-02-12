@@ -7,9 +7,17 @@ type Props = {
 }
 
 const defaultTodo: CatDTO = {
-    name: 'bob',
-    tailLength: 10
+    name: '',
+    tailLength: 0
 }
+
+const handleChange = (e: React.FormEvent, formData: CatDTO, changeFunc: (formData: CatDTO) => Promise<void>) => {
+    e.preventDefault();
+    changeFunc(formData)
+        .then(() => window.location.reload());
+
+}
+
 const AddTodo: React.FC<Props> = ({ saveTodo }) => {
     const [formData, setFormData] = useState<CatDTO>(defaultTodo)
 
@@ -22,7 +30,7 @@ const AddTodo: React.FC<Props> = ({ saveTodo }) => {
     }
 
     return (
-        <form className='Form' onSubmit={(e) => createCat(formData)}>
+        <form className='Form' onSubmit={(e) => handleChange(e, formData, createCat)}>
             <div>
                 <div>
                     <label htmlFor='name'>Name </label>

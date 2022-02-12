@@ -276,31 +276,30 @@ const catchErrorCodes = (options: ApiRequestOptions, result: ApiResult): void =>
  */
 export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions): CancelablePromise<T> => {
     return new CancelablePromise(async (resolve, reject, onCancel) => {
-        try {
-            const url = getUrl(config, options);
-            const formData = getFormData(options);
-            const body = getRequestBody(options);
-            const headers = await getHeaders(config, options);
+        const url = getUrl(config, options);
+        const formData = getFormData(options);
+        const body = getRequestBody(options);
+        const headers = await getHeaders(config, options);
 
-            if (!onCancel.isCancelled) {
-                const response = await sendRequest(config, options, url, body, formData, headers, onCancel);
-                const responseBody = await getResponseBody(response);
-                const responseHeader = getResponseHeader(response, options.responseHeader);
+        if (!onCancel.isCancelled) {
+            const response = await sendRequest(config, options, url, body, formData, headers, onCancel);
+            const responseBody = await getResponseBody(response);
+            const responseHeader = getResponseHeader(response, options.responseHeader);
 
-                const result: ApiResult = {
-                    url,
-                    ok: response.ok,
-                    status: response.status,
-                    statusText: response.statusText,
-                    body: responseHeader ?? responseBody,
-                };
+            const result: ApiResult = {
+                url,
+                ok: response.ok,
+                status: response.status,
+                statusText: response.statusText,
+                body: responseHeader ?? responseBody,
+            };
 
+            try {
                 catchErrorCodes(options, result);
-
                 resolve(result.body);
+            } catch (error) {
+                reject(result.body);
             }
-        } catch (error) {
-            reject(error);
         }
     });
 };

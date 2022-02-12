@@ -11,8 +11,6 @@ const defaultTodo: any = {
 }
 const AddTodo: React.FC<Props> = ({ saveTodo }) => {
     const [formData, setFormData] = useState<UserDTO>(defaultTodo)
-
-    console.log(formData)
     const handleForm = (e: React.FormEvent<HTMLInputElement>): void => {
         setFormData({
             ...formData,
