@@ -13,13 +13,13 @@ type TodoItemProps = {
 
 const TodoItem = ({ todo, updateTodo, deleteTodo }: TodoItemProps) => {
     return (
-        <div className='Card'>
+        <div style={{border: 'medium solid black', margin: '2vh', padding: '2vh', width: 'max-content'}} className='Card'>
             <div className='Card--text'>
                 <h3>Cat name - {todo.name}</h3>
                 <h5>Tail Length - {todo.tailLength}</h5>
             </div>
             <div className='Card--button'>
-                <button
+                <button style={{marginBottom: '1vh'}}
                     onClick={() => {
                         window.location.reload();
                         removeCatByName(todo.name)

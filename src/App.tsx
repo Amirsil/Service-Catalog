@@ -1,26 +1,44 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
-import { ApiError, CatDTO, CreateCatDTO, CreateUserDTO, UserDTO } from './services/openapi';
-import { createUser, getUsers, removeUserByName, updateUserByName } from './services/api/user';
-import AddUser from './features/user/AddUser';
-import { UserItem } from './features/user';
-import { createCat, getCats, removeCatByName, updateCatByName } from './services/api/cat';
-import { AddCat, CatItem } from './features/cat';
+import React, { useCallback, useEffect, useState } from "react";
+import logo from "./logo.svg";
+import { Counter } from "./features/counter/Counter";
+import "./App.css";
+import {
+  ApiError,
+  CatDTO,
+  CreateCatDTO,
+  CreateUserDTO,
+  UserDTO,
+} from "./services/openapi";
+import {
+  createUser,
+  getUsers,
+  removeUserByName,
+  updateUserByName,
+} from "./services/api/user";
+import AddUser from "./features/user/AddUser";
+import { UserItem } from "./features/user";
+import {
+  createCat,
+  getCats,
+  removeCatByName,
+  updateCatByName,
+} from "./services/api/cat";
+import { AddCat, CatItem } from "./features/cat";
 
 function App() {
   const [users, setUsers] = useState<UserDTO[]>([]);
   const [cats, setCats] = useState<CatDTO[]>([]);
   const [error, setError] = useState<ApiError | null>();
 
-
-  const handleSaveUser = useCallback((e: React.FormEvent, formData: CreateUserDTO) => {
-    e.preventDefault();
-    createUser(formData)
-      .then((user) => user)
-      .catch((err) => setError(err))
-  }, [])
+  const handleSaveUser = useCallback(
+    (e: React.FormEvent, formData: CreateUserDTO) => {
+      e.preventDefault();
+      createUser(formData)
+        .then((user) => user)
+        .catch((err) => setError(err));
+    },
+    []
+  );
 
   const handleUpdateTodo = useCallback((name: string, todo: CreateUserDTO) => {
     updateUserByName(name, todo)
@@ -29,27 +47,27 @@ function App() {
   }, []);
 
   const handleDeleteTodo = useCallback((name: string) => {
-    removeUserByName(name)
-      .catch((err) => setError(err));
+    removeUserByName(name).catch((err) => setError(err));
   }, []);
 
   useEffect(() => {
     getUsers()
       .then((allTodos) => {
-        console.log(allTodos)
-        setUsers(allTodos)
+        console.log(allTodos);
+        setUsers(allTodos);
       })
       .catch((error) => setError(error));
   }, []);
 
-
-
-  const handleSaveCat = useCallback((e: React.FormEvent, formData: CreateCatDTO) => {
-    e.preventDefault();
-    createCat(formData)
-      .then((user) => user)
-      .catch((err) => setError(err))
-  }, [])
+  const handleSaveCat = useCallback(
+    (e: React.FormEvent, formData: CreateCatDTO) => {
+      e.preventDefault();
+      createCat(formData)
+        .then((user) => user)
+        .catch((err) => setError(err));
+    },
+    []
+  );
 
   const handleUpdateCat = useCallback((name: string, todo: CreateCatDTO) => {
     updateCatByName(name, todo)
@@ -58,35 +76,36 @@ function App() {
   }, []);
 
   const handleDeleteCat = useCallback((name: string) => {
-    removeCatByName(name)
-      .catch((err) => setError(err));
+    removeCatByName(name).catch((err) => setError(err));
   }, []);
 
   useEffect(() => {
     getCats()
       .then((allTodos) => {
-        console.log(allTodos)
-        setCats(allTodos)
+        console.log(allTodos);
+        setCats(allTodos);
       })
       .catch((error) => setError(error));
   }, []);
 
-
   return (
-    <main className='App'>
+    <main className="App">
       <h1>My Cats</h1>
       <AddCat saveTodo={handleSaveCat} />
-      {cats.map((todo: CatDTO) => (
-        <CatItem
-          key={todo.name}
-          updateTodo={handleUpdateCat}
-          deleteTodo={handleDeleteCat}
-          todo={todo}
-        />
-      ))}
+      <div
+        style={{display: 'flex', alignItems:'center', flexDirection: 'column'}}
+      >
+        {cats.map((todo: CatDTO) => (
+          <CatItem
+            key={todo.name}
+            updateTodo={handleUpdateCat}
+            deleteTodo={handleDeleteCat}
+            todo={todo}
+          />
+        ))}
+      </div>
     </main>
   );
-};
-
+}
 
 export default App;
