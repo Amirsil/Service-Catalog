@@ -11,4 +11,5 @@ export type { CreateCatDTO } from './models/CreateCatDTO';
 export type { CreateUserDTO } from './models/CreateUserDTO';
 export type { UserDTO } from './models/UserDTO';
 
-export { DefaultService } from './services/DefaultService';
+export { CatsService } from './services/CatsService';
+export { UsersService } from './services/UsersService';

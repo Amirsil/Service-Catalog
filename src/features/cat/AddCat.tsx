@@ -7,7 +7,7 @@ type Props = {
 }
 
 const defaultTodo: CatDTO = {
-    name: 'bob',
+    name: '',
     tailLength: 0
 }
 
@@ -35,13 +35,13 @@ const AddTodo: React.FC<Props> = ({ saveTodo }) => {
                 <div>
                     <label htmlFor='name'>Name </label>
                     <br></br>
-                    <input onChange={handleForm} type='text' id='name' placeholder={defaultTodo.name} />
+                    <input onChange={handleForm} type='text' id='name' />
                 </div>
                 <br></br>
                 <div>
                     <label htmlFor='tailLength'>Tail Length </label>
                     <br></br>
-                    <input onChange={handleForm} type='text' id='tailLength' placeholder={String(defaultTodo.tailLength)} />
+                    <input onChange={handleForm} type='text' id='tailLength' />
                 </div>
                 <br></br>
             </div>
